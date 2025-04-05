@@ -1,35 +1,30 @@
-import { useState } from "react";
-import { fetchPelis } from "../logic/fetchPelis";
+import { useCineHook } from "../hooks/useCineHook";
 import { Cine } from "./Cine";
-import { Funcion } from "../types";
+
 
 
 export function CineBoard() {
-    const [peliculas, setPeliculas] = useState<null | Funcion[]>(null);
-    const conseguirPelis = async () => {
-        const pelis = await fetchPelis();
-        setPeliculas(pelis);
-    }
-    conseguirPelis();
+    const { peliculas, peliculaFiltrada, setFilterId } = useCineHook();
     return (
         <main>
             <div>
                 <h2>
                     Peliculas:
                 </h2>
-                <select className="opciones">
+                <select className="opciones" onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFilterId(Number(e.target.value))}>
+                    <option key={"No value"} >Select a film</option>
                     {
                         peliculas && (
                             peliculas.map(pelicula => {
                                 return (
-                                    <option key={pelicula.id}>{pelicula.nombreFuncion}</option>
+                                    <option key={pelicula.id} value={pelicula.id}>{pelicula.nombreFuncion}</option>
                                 )
                             })
                         )
                     }
                 </select>
             </div>
-            <Cine />
+            <Cine peliculaFiltrada={peliculaFiltrada} />
         </main >
     )
 

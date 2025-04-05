@@ -120,7 +120,7 @@ main>div {
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  height: 200px;
+  height: 20%;
   background-color: #e98d81;
 }
 
@@ -136,6 +136,36 @@ main>div {
 .pantalla>h2 {
   font-size: 2rem;
 }
+
+.asientos {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  place-items: center;
+  height: 80%;
+  width: 80%;
+}
+
+.asiento {
+  text-align: center;
+  color: black;
+  width: 50%;
+  height: 50%;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.green {
+  background-color: rgb(67, 179, 67);
+}
+
+.red {
+  background-color: red;
+}
+
+.asiento:hover {
+  background-color: rgb(20, 93, 252);
+}
+
 
 @media (max-width: 1620px) {
   ul.botones>li {

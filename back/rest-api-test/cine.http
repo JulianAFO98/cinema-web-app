@@ -15,5 +15,6 @@ content-type: application/json
 
 
 ### RESERVAR ASIENTO (UPDATE)
-POST http://localhost:8080/api/v1/funcion/1/asiento/35
+POST http://localhost:8080/api/v1/funcion/1/asiento/56
+
  

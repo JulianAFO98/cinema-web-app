@@ -4,7 +4,7 @@ export interface Asiento {
 }
 
 export interface Funcion {
-    id: string,
+    id: number,
     nombreFuncion: string,
     hora: string,
     dia: number,
@@ -15,4 +15,16 @@ export interface Funcion {
 export interface ApiResponse {
     message: string,
     object: Funcion[]
+}
+
+export interface CineState {
+    peliculas: Funcion[] | null,
+    filters: Filters,
+    fetchPeliculas: () => Promise<void>;
+    setFilterId: (filmId: number) => void;
+}
+
+
+export interface Filters {
+    id: number | null,
 }
