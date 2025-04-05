@@ -1,17 +1,18 @@
-package entidades;
+package com.app.model.entidades;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
 public class Cine {
 
     private String nombre;
     private int cantAsientos;
     private ArrayList<Funcion> cartelera = new ArrayList<>();;
 
-    public Cine() {
-    }
-
-    public Cine(String nombre, int cantAsientos) {
+    public Cine(@Value("${cine.nombre}") String nombre, @Value("${cine.cantAsientos}") int cantAsientos) {
         this.nombre = nombre;
         this.cantAsientos = cantAsientos;
     }

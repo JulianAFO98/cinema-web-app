@@ -1,4 +1,4 @@
-package entidades;
+package com.app.model.entidades;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -88,6 +88,20 @@ public class Funcion {
         }
 
         asiento.setOcupado(true);
+        return true;
+    }
+
+    public boolean eliminarReserva(int numero) {
+        Asiento asiento = asientos.stream()
+                .filter(a -> a.getNumero() == numero)
+                .findFirst()
+                .orElse(null);
+
+        if (asiento == null || !asiento.getOcupado()) {
+            return false;
+        }
+
+        asiento.setOcupado(false);
         return true;
     }
 

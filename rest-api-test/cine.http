@@ -1,0 +1,19 @@
+### POST FUNCION 
+POST http://localhost:8080/api/v1/funcion HTTP/1.1
+content-type: application/json
+
+{
+    "nombre": "sample",
+    "dia" : 23,
+    "horaStr":"20:30",
+    "precio":1200
+}
+
+### DELETE FUNCION 
+DELETE http://localhost:8080/api/v1/funcion/3 HTTP/1.1
+content-type: application/json
+
+
+### RESERVAR ASIENTO (UPDATE)
+POST http://localhost:8080/api/v1/funcion/1/asiento/35
+ 

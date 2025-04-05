@@ -1,4 +1,4 @@
-package services.impl;
+package com.app.services.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,23 +7,29 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
-import Exception.FuncionNoEncontradaException;
-import entidades.Cine;
-import entidades.Funcion;
-import services.interfaces.ICineService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.app.model.DTO.FuncionDTO;
+import com.app.model.entidades.Cine;
+import com.app.model.entidades.Funcion;
+import com.app.services.interfaces.ICineService;
+
+@Service
 public class CineService implements ICineService {
 
     private Cine cine; // En caso de api rest conectar con el DAO
 
+    @Autowired
     public CineService(Cine cine) {
         this.cine = cine;
+        llenarCartelera(); // CAMBIAR
     }
 
     @Override
-    public void llenarCartelera(String nombreArch) { // CREATE ALL
+    public void llenarCartelera() { // CREATE ALL
 
-        File archivo = new File(nombreArch + ".txt");
+        File archivo = new File("src\\main\\resources\\archivo.txt");
 
         if (!archivo.exists()) {
             System.out.println("El archivo " + archivo.getName() + " no existe.");
@@ -73,35 +79,23 @@ public class CineService implements ICineService {
     }
 
     @Override
-    public void mostrarPeliculas() {
-        List<Funcion> cartelera = cine.getCartelera();
-        if (!cartelera.isEmpty()) {
-            for (Funcion funcion : cartelera) {
-                System.out.println(funcion.toString());
-            }
-        } else {
-            System.out.println("La cartelera esta vacia");
-        }
-
+    public List<Funcion> obtenerPeliculas() {
+        return cine.getCartelera();
     }
 
     @Override
-    public void eliminarFuncion(int id) { // DELETE
-        int originalSize = cine.getCartelera().size();
-        cine.getCartelera().removeIf(funcion -> funcion.getId() == id);
-
-        if (cine.getCartelera().size() != originalSize)
-            System.out.println("Elemento eliminado correctamente");
-        else {
-            throw new FuncionNoEncontradaException(id);
-        }
-
+    public boolean eliminarFuncion(Integer id) { // DELETE
+        boolean eliminado = cine.getCartelera().removeIf(funcion -> id.equals(funcion.getId()));
+        return eliminado;
     }
 
     @Override
-    public void agregarFuncion(String nombre, int dia, LocalTime hora, float precio) { // CREATE
+    public Funcion agregarFuncion(FuncionDTO funcionDto, LocalTime hora) { // CREATE
         int id = cine.getMaxId() + 1;
-        cine.addFuncion(new Funcion(id, nombre, dia, hora, cine.getCantAsientos(), precio));
+        Funcion funcion = new Funcion(id, funcionDto.getNombre(), funcionDto.getDia(), hora,
+                cine.getCantAsientos(), funcionDto.getPrecio());
+        cine.addFuncion(funcion);
+        return funcion;
     }
 
     @Override

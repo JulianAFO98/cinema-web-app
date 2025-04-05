@@ -1,4 +1,4 @@
-package entidades;
+package com.app.model.entidades;
 
 public class Asiento {
 
@@ -28,6 +28,11 @@ public class Asiento {
 
     public void setOcupado(boolean ocupado) {
         this.ocupado = ocupado;
+    }
+
+    @Override
+    public String toString() {
+        return "Asiento numero " + numero + " esta " + (ocupado ? "ocupado" : "desocupado");
     }
 
 }

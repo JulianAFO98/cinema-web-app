@@ -1,4 +1,4 @@
-package Exception;
+package com.app.Exception;
 
 public class FuncionNoEncontradaException extends RuntimeException {
     public FuncionNoEncontradaException(int id) {
