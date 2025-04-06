@@ -22,6 +22,7 @@ export interface CineState {
     filters: Filters,
     fetchPeliculas: () => Promise<void>;
     setFilterId: (filmId: number) => void;
+    reservarAsiento: (idPelicula: number, numeroAsiento: number) => void;
 }
 
 

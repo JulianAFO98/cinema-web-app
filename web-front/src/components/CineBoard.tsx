@@ -4,7 +4,7 @@ import { Cine } from "./Cine";
 
 
 export function CineBoard() {
-    const { peliculas, peliculaFiltrada, setFilterId } = useCineHook();
+    const { peliculas, peliculaFiltrada, setFilterId, reservarAsiento } = useCineHook();
     return (
         <main>
             <div>
@@ -24,7 +24,7 @@ export function CineBoard() {
                     }
                 </select>
             </div>
-            <Cine peliculaFiltrada={peliculaFiltrada} />
+            <Cine peliculaFiltrada={peliculaFiltrada} reservarAsiento={reservarAsiento} />
         </main >
     )
 
