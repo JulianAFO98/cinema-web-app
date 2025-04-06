@@ -1,17 +1,11 @@
-import { Funcion } from "../types"
-
-
-interface CineProps {
-    peliculaFiltrada: Funcion | undefined,
-    reservarAsiento: (idPelicula: number, numeroAsiento: number) => void;
-}
+import { CineProps } from "../types";
 
 
 
-export function Cine({ peliculaFiltrada, reservarAsiento }: CineProps) {
+export function Cine({ peliculaFiltrada, reservarAsiento, liberarAsiento }: CineProps) {
 
-    const handleClick = (id: number, numeroAsiento: number) => {
-        reservarAsiento(id, numeroAsiento);
+    const handleClick = (id: number, numeroAsiento: number, ocupado: boolean) => {
+        ocupado ? liberarAsiento(id, numeroAsiento) : reservarAsiento(id, numeroAsiento);
     }
 
     return (
@@ -23,7 +17,7 @@ export function Cine({ peliculaFiltrada, reservarAsiento }: CineProps) {
                 {peliculaFiltrada && (
                     peliculaFiltrada.asientos.map((asiento, index) => {
                         return (
-                            <div className={`asiento ${asiento.ocupado ? "red" : "green"}`} onClick={() => handleClick(peliculaFiltrada.id, asiento.numero)} key={index}>{asiento.numero}</div>
+                            <div className={`asiento ${asiento.ocupado ? "red" : "green"}`} onClick={() => handleClick(peliculaFiltrada.id, asiento.numero, asiento.ocupado)} key={index}>{asiento.numero}</div>
                         )
                     })
                 )

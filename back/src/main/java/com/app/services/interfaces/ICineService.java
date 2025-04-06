@@ -16,4 +16,6 @@ public interface ICineService {
     public Funcion agregarFuncion(FuncionDTO funcionDto, LocalTime hora);
 
     public Funcion buscarFuncionPorId(int id);
+
+    public Funcion buscarFuncionPorNombre(String nombre);
 }

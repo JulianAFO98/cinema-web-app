@@ -1,4 +1,4 @@
-import { ApiResponse } from "../types";
+import { FetchAllApiResponse, FetchOneApiResponse, FuncionData } from "../types";
 
 
 
@@ -10,7 +10,7 @@ export async function fetchPelis() {
         if (!response.ok) {
             throw new Error("Fetch failed");
         }
-        const peliculas: ApiResponse = await response.json();
+        const peliculas: FetchAllApiResponse = await response.json();
         return peliculas.object;
     } catch (error) {
         console.error((error as Error).message);
@@ -19,19 +19,39 @@ export async function fetchPelis() {
 }
 
 
-export async function fetchAsiento(idPelicula: number, numeroAsiento: number) {
+export async function fetchAsiento(idPelicula: number, numeroAsiento: number, operacion: string) {
 
     try {
-        const response = await fetch(`http://localhost:8080/api/v1/funcion/${idPelicula}/asiento/${numeroAsiento}`, {
+        const response = await fetch(`http://localhost:8080/api/v1/funcion/${idPelicula}/asiento/${operacion}/${numeroAsiento}`, {
             method: "POST"
         }
 
         );
         if (!response.ok) {
-            throw new Error("No se pudo reservar el asiento");
+            throw new Error("No se pudo cambiar el estado el asiento");
         }
-        const feedback: ApiResponse = await response.json();
+        const feedback: FetchOneApiResponse = await response.json();
         return feedback.message;
+    } catch (error) {
+        console.error((error as Error).message);
+        return null;
+    }
+}
+
+export const insertarPeli = async (funcion: FuncionData) => {
+    try {
+        const response = await fetch("http://localhost:8080/api/v1/funcion", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(funcion)
+        });
+        const data: FetchOneApiResponse = await response.json();
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+        return data;
     } catch (error) {
         console.error((error as Error).message);
         return null;

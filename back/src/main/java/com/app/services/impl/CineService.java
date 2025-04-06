@@ -103,4 +103,11 @@ public class CineService implements ICineService {
         return cine.getCartelera().stream().filter(funcion -> funcion.getId() == id).findFirst().orElse(null);
     }
 
+    @Override
+    public Funcion buscarFuncionPorNombre(String nombre) {
+        return cine.getCartelera().stream().filter(funcion -> nombre.equals(funcion
+                .getNombreFuncion())).findFirst()
+                .orElse(null);
+    }
+
 }

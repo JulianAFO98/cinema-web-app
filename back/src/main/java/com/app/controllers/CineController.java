@@ -50,10 +50,15 @@ public class CineController {
         }
 
         try {
+            Funcion funcion = cineService.buscarFuncionPorNombre(funcionDto.getNombre());
+            if (funcion != null) {
+                return ResponseEntity.badRequest()
+                        .body(ApiResponse.builder().message("Funcion ya existente").object(null).build());
+            }
             LocalTime hora = LocalTime.parse(funcionDto.getHoraStr());
-            cineService.agregarFuncion(funcionDto, hora);
+            funcion = cineService.agregarFuncion(funcionDto, hora);
             return ResponseEntity.ok()
-                    .body(ApiResponse.builder().message("Funcion agregada con exito").object(null).build());
+                    .body(ApiResponse.builder().message("Funcion agregada con exito").object(funcion).build());
 
         } catch (DateTimeParseException e) {
             return ResponseEntity
@@ -99,7 +104,7 @@ public class CineController {
     }
 
     //// ASIENTO SECTION ////
-    @PostMapping("/funcion/{id}/asiento/{numAsiento}")
+    @PostMapping("/funcion/{id}/asiento/reservar/{numAsiento}")
     public ResponseEntity<?> reservarAsiento(@PathVariable("id") Integer id,
             @PathVariable("numAsiento") Integer numAsiento) {
         Funcion funcion = cineService.buscarFuncionPorId(id);
@@ -125,6 +130,7 @@ public class CineController {
                 .build());
     }
 
+    @PostMapping("/funcion/{id}/asiento/liberar/{numAsiento}")
     public ResponseEntity<?> eliminarReservaAsiento(@PathVariable("id") Integer id,
             @PathVariable("numAsiento") Integer numAsiento) {
         Funcion funcion = cineService.buscarFuncionPorId(id);

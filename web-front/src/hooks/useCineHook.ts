@@ -10,6 +10,7 @@ export const useCineHook = () => {
     const fetchPeliculas = CineStore(state => state.fetchPeliculas);
     const setFilterId = CineStore(state => state.setFilterId);
     const reservarAsiento = CineStore(state => state.reservarAsiento);
+    const liberarAsiento = CineStore(state => state.liberarAsiento);
 
     useEffect(() => {
         fetchPeliculas();
@@ -18,5 +19,5 @@ export const useCineHook = () => {
     console.log("Se refresca CineHook");
     const peliculaFiltrada = peliculas?.filter(pelicula => pelicula.id == id)[0];
 
-    return { peliculas, peliculaFiltrada, setFilterId, reservarAsiento };
+    return { peliculas, peliculaFiltrada, setFilterId, reservarAsiento, liberarAsiento };
 }

@@ -4,7 +4,7 @@ import { Cine } from "./Cine";
 
 
 export function CineBoard() {
-    const { peliculas, peliculaFiltrada, setFilterId, reservarAsiento } = useCineHook();
+    const { peliculas, peliculaFiltrada, setFilterId, reservarAsiento, liberarAsiento } = useCineHook();
     return (
         <main>
             <div>
@@ -12,7 +12,7 @@ export function CineBoard() {
                     Peliculas:
                 </h2>
                 <select className="opciones" onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFilterId(Number(e.target.value))}>
-                    <option key={"No value"} >Select a film</option>
+                    <option key={"No value"}>Select a film</option>
                     {
                         peliculas && (
                             peliculas.map(pelicula => {
@@ -24,7 +24,7 @@ export function CineBoard() {
                     }
                 </select>
             </div>
-            <Cine peliculaFiltrada={peliculaFiltrada} reservarAsiento={reservarAsiento} />
+            <Cine peliculaFiltrada={peliculaFiltrada} reservarAsiento={reservarAsiento} liberarAsiento={liberarAsiento} />
         </main >
     )
 
